@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+
+  sqlite-postgres-server:
+    container_name: sqlite-postgres-server
+    build: ./
+    image: sqlite-postgres-server:latest
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    networks:
+      - sqlite-postgres-network
+    volumes:
+      - ./sqlite/default.db:/sqlite/default.db
+
+  postgres:
+    container_name: postgres
+    image: postgres:15.1-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    networks:
+      - sqlite-postgres-network
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  sqlite-postgres-network:
+    driver: bridge

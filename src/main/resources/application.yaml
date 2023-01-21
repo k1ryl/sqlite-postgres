@@ -1,0 +1,17 @@
+spring:
+
+  sqlite:
+    datasource:
+      url: jdbc:sqlite:sqlite/default.db
+      driver-class-name: org.sqlite.JDBC
+      hibernate:
+        dialect: vkir.sqlitepostgres.sqlite.config.SQLiteDialect
+
+  postgres:
+    datasource:
+      url: jdbc:postgresql://localhost:5432/postgres
+      driver-class-name: org.postgresql.Driver
+      username: postgres
+      password: password
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
