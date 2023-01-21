@@ -12,6 +12,8 @@ curl --location --request POST 'http://localhost:8080/migrate' \
 --form 'files=@"<path to SQLite file>"'
 ```
 It's possible to add multiple files to `files` section of `multipart/form-data`. In that case files will be processed sequentially.
+Also, all records from that files will have same `sqlite_uuid` value:
+![img.png](img.png)
 
 You can use `test.db` as SQLite DB example. This DB contains 10 records per table.
 

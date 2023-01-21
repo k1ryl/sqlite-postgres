@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import vkir.sqlitepostgres.migration.service.DataMigrationService;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,9 +20,10 @@ public class DataMigrationController {
     @PostMapping(path = "/migrate")
     public ResponseEntity<String> handleFileUpload(@RequestParam("files") MultipartFile[] files) {
         if (files.length != 0) {
+            String uuid = UUID.randomUUID().toString();
             try {
                 for (MultipartFile file : files) {
-                    dataMigrationService.migrate(file);
+                    dataMigrationService.migrate(file, uuid);
                 }
                 return ResponseEntity.ok("Successfully migrated.");
             } catch (IOException e) {
