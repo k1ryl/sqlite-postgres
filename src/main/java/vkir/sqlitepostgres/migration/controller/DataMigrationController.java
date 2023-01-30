@@ -20,10 +20,9 @@ public class DataMigrationController {
     @PostMapping(path = "/migrate")
     public ResponseEntity<String> handleFileUpload(@RequestParam("files") MultipartFile[] files) {
         if (files.length != 0) {
-            String uuid = UUID.randomUUID().toString();
             try {
                 for (MultipartFile file : files) {
-                    dataMigrationService.migrate(file, uuid);
+                    dataMigrationService.migrate(file);
                 }
                 return ResponseEntity.ok("Successfully migrated.");
             } catch (IOException e) {

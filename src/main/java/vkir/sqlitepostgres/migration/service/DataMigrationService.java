@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,8 @@ public class DataMigrationService {
     private final PgARepository pgARepository;
     private final PgBRepository pgBRepository;
 
-    public void migrate(MultipartFile file, String sqliteUUID) throws IOException {
+    public void migrate(MultipartFile file) throws IOException {
+        String sqliteUUID = UUID.randomUUID().toString();
         String filename = sqliteUUID + ".db";
         Path filePath = Paths.get("sqlite", filename);
         Files.createDirectories(filePath.getParent());
